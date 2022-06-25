@@ -208,21 +208,88 @@ public class FClass {
 
 
 ### PPA - 1
-> A
+> Calculator that has the following methods: <BR>
+>	`sum(double a, double b)` that prints the value of `a + b` <BR>
+>	`subtraction(double a, double b)` that prints the value of `a - b` <BR>
+>	`multiply(double a, double b)` that prints the value of `a * b` <BR>
+>	`division(double a, double b)` that prints the value of `a / b` <BR>
+>	 <BR>
+>	Write another class named UpdatedCalculator that inherits all the methods of Calculator and also has the following method: <BR>
+>	`remainder(double a, double b)` that prints the value of `a % b`
 ```
-
+import java.util.*;
+class Calculator {
+	public void sum(double a, double b) {
+		System.out.println(a + b);
+	}
+	public void subtraction(double a, double b) {
+		System.out.println(a - b);
+	}
+	public void multiply(double a, double b) {
+		System.out.println(a * b);
+	}
+	public void division(double a, double b) {
+		System.out.println(a/b);
+	}
+}
+class UpdatedCalculator extends Calculator {
+	public void remainder(double a, double b) {
+		System.out.println(a % b);
+	}
+}
+public class CalculatorCheck {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		double n1 = sc.nextDouble();
+		double n2 = sc.nextDouble();
+		Calculator c = new Calculator();
+		c.sum(n1, n2);
+		c.subtraction(n1, n2);
+		c.multiply(n1, n2);
+		c.division(n1, n2);
+		UpdatedCalculator uc = new UpdatedCalculator();
+		uc.remainder(n1, n2);
+	}
+}
 ```
 
 ### PPA - 2
-> A
+> Consider the following Java program. <BR>
+> Implement the code as instructed in the comment, such that it satisfies the given test cases and is in coherence with the given `main` function.
 ```
-
-```
-
-### PPA - 3
-> A
-```
-
+import java.util.*;
+class Point {
+	private int x, y;
+	public Point(int a, int b) {
+		x = a;
+		y = b;
+	}
+	public String toString() {
+		return "(" + this.x  + ", " + this.y + ")";
+	}
+	public boolean equals(Point b) {
+		String flag;
+		if (this.x == b.x && this.y == b.y)
+			return true;
+		else
+			return false;
+    }
+}
+class FClass {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int x1 = sc.nextInt();
+		int y1 = sc.nextInt();
+		int x2 = sc.nextInt();
+		int y2 = sc.nextInt();
+		Point p1 = new Point(x1, y1);
+		Point p2 = new Point(x2, y2);
+		if(p1.equals(p2))
+			System.out.println(p1 + "==" + p2);
+		else
+			System.out.println(p1 + "!=" + p2);
+	}
+}
 ```
 
 ### GrPA - 1
