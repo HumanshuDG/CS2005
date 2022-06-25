@@ -67,7 +67,7 @@ class FClass {
 
 ### GrPA - 1
 > Write a program to find the sum of the following series up to n terms. <BR>
-> $1^2 + (1^2 + 2^2) + (1^2 + 2^2 + 3^2) + ......... + (1^2 + 2^2 + ... + n^2)$
+> $1^{2} + (1^{2} + 2^{2}) + (1^{2} + 2^{2} + 3^{2}) + ......... + (1^{2} + 2^{2} + ... + n^{2})$
 ```
 import java.util.*;
 public class SeriesSum {
