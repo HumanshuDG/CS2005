@@ -424,41 +424,253 @@ class AccountCheck {
 
 <H1 ALIGN=CENTER> Week - 4 </H1>
 
-
 ### PPA - 1
-> A
+> Implement the code as instructed in the comments, such that it satisfies the given test cases.
 ```
-
+import java.util.*;
+interface Searchable {
+	public int search(int start_index, Object key);
+}
+class Char {
+	private char c;
+	public Char(char c_) {
+		c = c_;
+	}
+	public boolean equals(Object d) {
+		if (d instanceof Char) {
+			Char chr = (Char) d;
+			return (c == chr.c);
+		}
+		return false;
+	}
+}
+class CharArray implements Searchable {
+	private Char[] carr;
+	public CharArray(Char[] carr_) {
+		carr = carr_;
+	}
+	public int search(int start_index, Object key) {
+		for (int i = start_index; i < carr.length; i++) {
+			if (carr[i].equals(key))
+                return i;
+		}
+		return -1;
+	}
+}
+class FrequencyCounter {
+	public static int getFrequency(Searchable ob, Object key) {
+		if (ob instanceof CharArray) {
+			int num = 0, i = 0;
+			i = ob.search(i, key);
+			while (i > -1) {
+				if (i != -1)
+					num += 1;
+				i = ob.search(i + 1, key);
+			}
+			return num;
+		}
+		else
+			return 0;
+	}
+}
+class FClass {
+	public static void main(String[] args) {
+		String str;
+		char c;
+		Scanner sc = new Scanner(System.in);
+		str = sc.nextLine();
+		c = sc.next().charAt(0);
+		Char key = new Char(c);
+		Char[] cA = new Char[str.length()]; 
+		for(int i = 0; i < str.length(); i++)
+			cA[i] = new Char(str.charAt(i));
+		CharArray caObj = new CharArray(cA);
+		System.out.println(FrequencyCounter.getFrequency(caObj, key));
+	}
+}
 ```
 
 ### PPA - 2
-> A
+> Please follow the comments and given code segments to complete the program in accordance with the sample outputs. <BR>
+> Both the Voter and EVM classes must be created in such a way that they enforce the existence of only a single instance at a time. Each Voter object must be mapped with a unique EVM object and vice versa. A Voter must be allocated an EVM and then the voting process should start, once voting is completed that particular EVM should be freed and the next voter should be called. <BR>
+> Again a new EVM must be allocated to the next voter like previously and the process continues till all the voters cast their votes.
 ```
-
-```
-
-### PPA - 3
-> A
-```
-
+import java.util.Scanner;
+class Voter {
+	public static int total_no_of_voters;
+	public static Voter new_voter;
+	public static int current_voter_count;
+	private Voter() {
+		current_voter_count++;
+	}
+	public static Voter getVoter() {
+		if (new_voter == null) {
+			new_voter = new Voter();
+			return new_voter;
+		}
+		else
+			return null;
+	}
+	public void firstVoter() {
+		if (new_voter != null) {
+			EVM new_machine = EVM.getEVM(new_voter);
+			new_machine.startVoting();
+		}
+	}
+	public void callNewVoter() {
+		if (Voter.current_voter_count < Voter.total_no_of_voters) {
+			Voter v = Voter.getVoter();
+			EVM ev = EVM.getEVM(v);
+			try {
+				EVM x = EVM.getEVM(null);
+				x.startVoting();
+			}
+			catch (NullPointerException e) {
+				System.out.println("EVM is Singleton");
+			}
+			ev.startVoting();
+		}
+	}
+}
+class EVM {
+	public static EVM currevm;
+	public static Voter current_voter;
+	public static int evm_count;
+	private EVM(Voter v) {
+		current_voter = v;
+		evm_count++;
+	}
+	public static EVM getEVM(Voter v) {
+		if (currevm == null) {
+			currevm = new EVM(v);
+			return currevm;
+		}
+		else
+			return null;
+	}
+	public void startVoting() {
+		System.out.println("voting under process on EVM number " + EVM.evm_count);
+		System.out.println("Voting completed for voter " + Voter.current_voter_count);
+		Voter.new_voter = null;
+		EVM.currevm = null;
+		EVM.current_voter.callNewVoter();
+	}
+}
+public class Election {
+	public static void main(String args[]) {
+		Scanner s = new Scanner(System.in);
+		Voter.total_no_of_voters =  s.nextInt();
+		// Assume input is always non zero
+		Voter v = Voter.getVoter();
+		//Trying to create another voter when one voter is in the middle of 
+		//voting process, students can ignore this try-catch block of code
+		try {
+			Voter x = Voter.getVoter();
+			x.callNewVoter();
+		}
+		catch(NullPointerException e) {
+			System.out.println("Voter is Singleton");
+			//Starting the first vote of the day
+			v.firstVoter();
+		}
+	}
+}
 ```
 
 ### GrPA - 1
-> A
+> Create an abstract class StringOperations that has the following abstract methods: <BR>
+>	- `String reverse(String s)` <BR>
+>	- `int vowelCount(String s)` <BR>
+> Create `StringReverse` class that extends `StringOperations` class but defines only `String reverse(String s)` method. It reverses the string which is passed as parameter and returns the reversed string. <BR>
+> Create `UpdatedStrings` class that extends `StringReverse` class and defines `int vowelCount(String s)` method.  It counts the vowels in the string which is passed as parameter and returns the count.
 ```
-
+import java.util.*;
+abstract class StringOperations {
+	public abstract String reverse(String s);
+	public abstract int vowelCount(String s);
+}
+abstract class StringReverse extends StringOperations {
+	@Override
+	public String reverse(String s) {
+		String rev = "";
+		for (int i = s.length() - 1; i >= 0; i--)
+			rev += s.charAt(i);
+		return rev;
+	}
+}
+class UpdatedStrings extends StringReverse {
+	@Override
+	public int vowelCount(String s) {
+		int count = 0;
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == 'a' || s.charAt(i) == 'e' || s.charAt(i) == 'i' || s.charAt(i) == 'o' || s.charAt(i) == 'u')
+				count++;
+		}
+		return count;
+	}
+}
+class Example {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		UpdatedStrings str = new UpdatedStrings();
+		System.out.println("Reverse of "+ s + " is "+ str.reverse(s));
+		System.out.println("Vowel count of "+ s + " is "+ str.vowelCount(s));
+	}
+}
 ```
 
 ### GrPA - 2
-> A
+> Implement the code as instructed in the comments, such that it satisfies the given test cases.
 ```
-
-```
-
-### GrPA - 3
-> A
-```
-
+import java.util.*;
+interface Iterator {
+	public boolean has_next();
+	public Object get_next();
+}
+class Sequence {
+	private final int maxLimit = 80;
+	private SeqIterator _iter = null;
+	int[] iArr;
+	int size;
+	public Sequence(int size_) {
+		iArr = new int[80];
+		size = 0;
+	}
+	public void addTo(int elem) {
+		iArr[size] = elem;
+		size++;
+	}
+	public Iterator get_Iterator() {
+		_iter = new SeqIterator();
+		return _iter;
+	}
+	private class SeqIterator implements Iterator {
+		int indx;
+		public SeqIterator() {
+			indx = -1;
+		}
+		public boolean has_next() {
+			if(indx < size - 1)
+				return true;
+			return false;
+		}
+		public Object get_next() {
+			return iArr[++indx];
+		}
+	}
+}
+class FClass {
+	public static void main(String[] args) {
+		Sequence sObj = new Sequence(5);
+		Scanner sc = new Scanner(System.in); 
+		for(int i = 0; i < 5; i++)
+			sObj.addTo(sc.nextInt());
+		Iterator i = sObj.get_Iterator();
+		while(i.has_next())
+			System.out.print(i.get_next() + ", ");
+	}
+}
 ```
 
 <H1 ALIGN=CENTER> Week - 5 </H1>
