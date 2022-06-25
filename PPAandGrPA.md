@@ -268,21 +268,157 @@ class FClass {
 ```
 
 ### GrPA - 1
-> A
+> Consider the following Java program. <BR>
+> Implement the code as instructed in the comments, such that it satisfies the given test cases and is in coherence with the given `main` method.
 ```
-
+import java.util.*;
+class Person {
+	private String name;
+	private long aadharno;
+	public Person(String name, long aadharno) {
+		this.name = name;
+		this.aadharno = aadharno;
+	}
+	public void print() {
+		System.out.println("name : " + name);
+		System.out.println("aadharno : " + aadharno);
+	}
+}
+class Employee extends Person {
+	private double salary;
+    //implement the constructor
+    //override print method 
+}
+class ContactEmployee extends Employee {
+	final private static double hourlyPay = 100.00;
+	private int contactHour;
+	//implement the constructor
+	//salary is computed as contactHour * hourlyPay
+}
+class FClass {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String nm1 = sc.nextLine();
+		String nm2 = sc.nextLine();
+		long adh1 = sc.nextLong();
+		long adh2 = sc.nextLong();
+		double sal = sc.nextDouble();
+		int cont = sc.nextInt();
+		Employee[] eArr = new Employee[2];
+		eArr[0] = new Employee(nm1, adh1, sal);
+		eArr[1] = new ContactEmployee(nm2, adh2, cont);
+		for(Employee e : eArr)
+			e.print();
+	}
+}
 ```
 
 ### GrPA - 2
-> A
+> Consider the following Java program. <BR>
+> Implement the code as instructed in the comment, such that it satisfies the given test cases.
 ```
-
+import java.util.*;
+class Shape {
+	public int area() {
+		return 0;
+	}
+	public int volume() {
+		return 0;
+	}
+}
+class Rectangle extends Shape {
+	private int w, h;
+	public Rectangle(int w_, int h_) {
+		w = w_;
+		h = h_;
+	}
+	public int area() {
+		return w * h;
+	}
+}
+class Cube extends Shape {
+	private int a;
+	public Cube(int a_) {
+		a = a_;
+	}
+	public int area() {
+		return 6 * a * a;
+	}
+	public int volume() {
+		return a * a * a;
+	}
+}
+class FClass {
+	private static void caller(Shape s) {
+		if(s instanceof Rectangle)
+			System.out.println(s.area());
+		if(s instanceof Cube)
+			System.out.println(s.volume());
+	}	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int w = sc.nextInt();
+		int h = sc.nextInt();
+		int a = sc.nextInt();
+		caller(new Rectangle(w, h));
+		caller(new Cube(a));
+	}
+}
 ```
 
 ### GrPA - 3
-> A
+> Create BankAccount class that has the following instance variables and methods: <BR>
+>	**Instance variables:** `accountNumber`, `name`, `balance` <BR>
+>	**Final variable:** `minBalance` <BR>
+>	**Private method:** <BR>
+>	checkMinBalance(amount) - returns false if balance - amount <= minBalance else returns true <BR>
+>	**Public methods:** <BR>
+>	`balance()` - prints the $balance$ <BR>
+>	`deposit(amount)` - updates $balance = balance + amount$ <BR>
+>	`withdraw(amount)` - calls the `checkMinBalance(amount)` method, if it returns `true` update $balance = balance - amount$ else prints Transaction failed
 ```
-
+import java.util.*;
+class BankAccount {
+	int accountNumber;
+	String name;
+	int balance;
+	final int minBalance = 100;
+	private boolean checkMinBalance(int amount) {
+		if(balance - amount <= minBalance)
+			return false;
+		else
+			return true;
+	}
+	public BankAccount(int a, String n, int b) {
+		this.accountNumber = a;
+		this.name = n;
+		this.balance = b;
+	}
+	public void balance( ) {
+		System.out.println(balance);
+	}
+	public void deposit(int amount) {
+		balance = balance + amount;
+	}
+	public void withdraw(int amount) {
+		if(checkMinBalance(amount))
+			balance = balance - amount;
+		else
+			System.out.println("Transaction failed");
+	}
+}
+class AccountCheck {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int amnt = sc.nextInt( );
+		int amnt1 = sc.nextInt( );
+		BankAccount b = new BankAccount(1890, "rahul", 1000);
+		b.deposit(amnt);
+		b.balance();
+		b.withdraw(amnt1);
+		b.balance();
+	}
+}
 ```
 
 
