@@ -1,35 +1,14 @@
 <H1 ALIGN=CENTER> Week - 1 </H1>
 
-### PPA - 1
-> A
+### Hello World!
+> Write your first Java program.
 ```
-
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello World!"); 
+    }
+}
 ```
-
-### PPA - 2
-> A
-```
-
-```
-
-### GrPA - 1
-> A
-```
-
-```
-
-### GrPA - 2
-> A
-```
-
-```
-
-### GrPA - 3
-> A
-```
-
-```
-
 
 <H1 ALIGN=CENTER> Week - 2 </H1>
 
