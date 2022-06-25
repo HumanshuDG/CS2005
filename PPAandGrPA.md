@@ -17,33 +17,29 @@ class HelloWorld {
 ```
 import java.util.*;
 class Rectangle {
-    int w;    //width
-    int h;    //height
-
-    public void setw(int x) {
-        this.w = x;
-    }	
-
-	public void seth(int y) {
-	    this.h = y;
+	int w;    //width
+	int h;    //height
+	public void setw(int x) {
+		this.w = x;
 	}
-
-    public int area() {
-        return this.w * this.h;
-    }
-
+	public void seth(int y) {
+		this.h = y;
+	}
+	public int area() {
+		return this.w * this.h;
+	}
 }
 public class FClass {
 	public static void main(String[] args) {
-        Scanner sc= new Scanner(System.in);
-        int w = Integer.parseInt(sc.nextLine());
-        int h = Integer.parseInt(sc.nextLine());
-        Rectangle r = new Rectangle();
-        r.setw(w);
-        r.seth(h);
-        int area = r.area();
-        System.out.print(area);
-    }
+		Scanner sc= new Scanner(System.in);
+		int w = Integer.parseInt(sc.nextLine());
+		int h = Integer.parseInt(sc.nextLine());
+		Rectangle r = new Rectangle();
+		r.setw(w);
+		r.seth(h);
+		int area = r.area();
+		System.out.print(area);
+	}
 }
 ```
 
