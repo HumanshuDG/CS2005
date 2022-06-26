@@ -678,13 +678,117 @@ class FClass {
 ### PPA - 1
 > Given a class name as input, complete the Java code to print the count of public and declared methods, fields and constructors in the class. For each method in class ClassStats below, fill in the missing code as described in the comments. Each method takes the class name as input.
 ```
+import java.lang.reflect.*;
+import java.util.*;
+class ClassStats{
+    private static Class c;
+    public static int getPubMethodCount(String cname) {
+        try {
+            //add code to return the count of 
+            //public methods in the given class
+            c = Class.forName(cname);
+            return c.getMethods().length;
+        }catch(Exception e) { return -1; }
+    }
+    public static int getAllMethodCount(String cname) {
+        try {
+            //add code to return the count of all 
+            //declared methods in the given class
+            c = Class.forName(cname);
+            return c.getDeclaredMethods().length;
+        }catch(Exception e) { return -1; }
+    }
+    public static int getPubFieldCount(String cname) {
+        try {
+            //add code to return the count of 
+            //public fields (instance variables) in the given class
+            c = Class.forName(cname);
+            return c.getFields().length;
+        }catch(Exception e) { return -1; }
+    }
+    public static int getAllFieldCount(String cname) {
+        try {
+            //add code to return the count of 
+            //all fields (instance variables) in the given class
+            c = Class.forName(cname);
+            return c.getDeclaredFields().length;
+        }catch(Exception e) { return -1; }
+    }
+    public static int getPubContCount(String cname) {
+        try {
+            //add code to return the count of 
+            //public constructors in the given class
+            c = Class.forName(cname);
+            return c.getConstructors().length;
+        }catch(Exception e) { return -1; }		
+    }
+    public static int getAllContCount(String cname) {
+        try {
+            //add code to return the count of 
+            //all constructors in the given class
+            c = Class.forName(cname);
+            return c.getDeclaredConstructors().length;
+        }catch(Exception e) { return -1; }
+    }
+}
 
+class FClass{
+    public static void main(String[] args) {
+        String cname;
+        Scanner sc = new Scanner(System.in);
+        cname = sc.nextLine();
+        System.out.println("Constructor: " + 
+                        ClassStats.getPubContCount(cname) + ", " + 
+                        ClassStats.getAllContCount(cname));
+        System.out.println("Fields: " + 
+                        ClassStats.getPubFieldCount(cname) + ", " +
+                        ClassStats.getAllFieldCount(cname));
+        System.out.println("Methods: " + 
+                        ClassStats.getPubMethodCount(cname) + ", " +
+                        ClassStats.getAllMethodCount(cname));
+    }
+}
 ```
 
 ### PPA - 2
 > Complete the Java code given below that takes as input a string array, where each string is assured to be either an integer or a double in string format. Your code must segregate the two types - integer and double - and print the double values followed by the integer values. For this, your code must iterate through the input array, and add each element to the appropriate array based on its type. 
 ```
-
+import java.util.Scanner;
+class ConvertArrays{
+	    public Double doubleArr[]=new Double[3];
+	    public Integer intArr[]=new Integer[3];
+	    public int x=0,y=0,z=0;
+	    public void convert(String[] arr){
+//loop through the arr and store each element 
+//in the appropriate array
+            int indexD = 0, indexI = 0;
+            for	(String s: arr){
+                if (s.contains("."))
+                    doubleArr[indexD++] = Double.valueOf(s);
+                else
+                    intArr[indexI++] = Integer.valueOf(s);
+            }	        
+}
+	    public <T> void display(T[] arr){
+	        for(T elements:arr)
+	    	        System.out.print(elements+" ");
+	        System.out.println();
+	    }
+}
+public class Programming {
+	    public static void main(String[] args) {
+		    Scanner scanner=new Scanner(System.in);
+		    String arr[]= new String[6];
+		    for (int i = 0; i < arr.length; i++) {
+			        arr[i]=scanner.next();
+		    }
+	    ConvertArrays conArrays=new ConvertArrays();
+	    conArrays.convert(arr);
+	    System.out.println("===After conversion Arrays===");
+	    conArrays.display(conArrays.doubleArr);
+	    conArrays.display(conArrays.intArr);	    
+	}
+}
 ```
 
 ### GrPA - 1
@@ -782,13 +886,141 @@ public class ArrayObject {
 ### PPA - 1
 > 
 ```
-
+import java.util.*;
+class RemoveStudent{
+	    public boolean property(Double value) {
+		        if(value<65)
+			            return true;
+	        return false;				
+	    }
+	    public void detained(Map<String, Double> obj) {
+// Define the detained() method
+				Set m = obj.entrySet();
+				Iterator i = m.iterator();
+				while (i.hasNext()){
+						Map.Entry entry = (Map.Entry)i.next();
+						if (property((Double)entry.getValue()))
+								i.remove();
+				}
+				System.out.println(obj);
+}
+	    public void display(Map<String, Double> obj) {
+		        System.out.println(obj);
+	    }
+}
+public class Test {
+	    public static void main(String[] args) {
+		        Map<String,Double> map=new TreeMap<String,Double>();
+		        Scanner scanner=new Scanner(System.in); 
+		        for (int i=0; i<6; i++) {
+			            map.put(scanner.next(),scanner.nextDouble());
+		        }
+		        RemoveStudent obj=new RemoveStudent();
+		        obj.detained(map);
+	    }
+}
 ```
 
 ### PPA - 2
-> A
-```
-
+> Complete the following program, which should work as a bank account validator and handle new account creation requests as detailed below. <BR>
+> **The program should accept account opening requests in the following format:** <BR>
+> - Number of savings accounts to be opened
+> - The account number  acc_no and balance of each savings account 
+> - Number of current accounts to be opened
+> - The account number, balance and over draft limit of each current account
+> <BR>
+> All the requests are forwarded to the accountProcessor method which, in turn, validates the requests, and prints the details according to the following criteria. <BR>
+> - Each valid account should have a unique account number. In case there are multiple account requests with the same account number, only the first request should be processed, and the rest should be discarded.
+> ***Hint: Use the  `LinkedHashSet` collection, and override the equals and hashCode methods to achieve this feature. The methods equals and hashCode are defined inside the Object class.***
+> Once all the duplicate account requests are filtered out and unique valid accounts are opened, the program should print the details of all the valid accounts in descending order of balance, in the format shown in the public test cases. 
+> Hint: Use the  TreeSet collection, and override the compareTo method to achieve this feature. The method compareTo is declared inside the Comparable interface.
+> ```
+import java.util.*;
+abstract class Account implements Comparable<Account>{
+    String acc_no;
+    double balance;	
+    public Account(String no,double bal){
+        acc_no = no; 
+        balance = bal;
+    }	
+//Override "compareTo" method here
+    public int compareTo(Account acc){
+        return (acc.balance>=this.balance) ? 1 : -1;
+    }
+// Override "equals" method here
+    public boolean equals(Object ob){
+        if (this==ob)
+            return true;
+        if (ob instanceof Account){
+            Account a = (Account)ob;
+            return this.acc_no.equals(a.acc_no);
+        }
+        return false;
+    }
+// Override "hashCode" method here
+    public int hashCode(){
+        return this.acc_no.hashCode();
+    }
+}
+class SavingsAccount extends Account{
+    public SavingsAccount(String acc_no, double bal) {
+        // Complete the definition
+        super(acc_no, bal);
+    }
+    // Override the toString() method
+    public String toString(){
+        return ("Savings Account:"+this.acc_no+" , Balance:"+this.balance);
+    }
+}
+class CurrentAccount extends Account{
+    double overdraft_limit;
+    public CurrentAccount(String acc_no, double bal, double odl) {
+        // Complete the constructor definition
+        super(acc_no, bal);
+        this.overdraft_limit = odl;
+    }
+    // Override the toString() method
+    public String toString(){
+        return ("Current Account:"+this.acc_no+" , Balance:"+this.balance);
+    }
+}
+public class Test4 {
+     // Define the `accountProcessor' method here
+    static void accountProcessor(ArrayList<Account> acc){
+        Set<Account> accSet = new LinkedHashSet<>(acc);
+        accSet = new TreeSet<>(accSet);
+        for (Account a: accSet)
+            System.out.println(a);
+    }
+ public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+        ArrayList<Account> acc = new ArrayList<Account>();
+        
+        //reading the number of savings accounts
+        int s_acc_count = s.nextInt();
+        for(int i=1;i<=s_acc_count;i++) {
+            //reading acc no
+            String no = s.next();
+            //reading balance
+            double bal = s.nextDouble();
+            acc.add(new SavingsAccount(no,bal));
+        }
+        
+        //reading the number of current accounts
+        int c_acc_count = s.nextInt();
+        for(int i=1;i<=c_acc_count;i++) {
+            //reading acc no
+            String no = s.next();
+            //reading balance
+            double bal = s.nextDouble();
+            //reading overdraft limit
+            double lim = s.nextDouble();
+            acc.add(new CurrentAccount(no,bal,lim));
+        }
+        
+        accountProcessor(acc);
+        }
+}
 ```
 
 ### GrPA - 1
