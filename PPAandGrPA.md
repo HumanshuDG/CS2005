@@ -934,7 +934,7 @@ public class Test {
 > ***Hint: Use the  `LinkedHashSet` collection, and override the equals and hashCode methods to achieve this feature. The methods equals and hashCode are defined inside the Object class.***
 > Once all the duplicate account requests are filtered out and unique valid accounts are opened, the program should print the details of all the valid accounts in descending order of balance, in the format shown in the public test cases. 
 > Hint: Use the  TreeSet collection, and override the compareTo method to achieve this feature. The method compareTo is declared inside the Comparable interface.
-> ```
+```
 import java.util.*;
 abstract class Account implements Comparable<Account>{
     String acc_no;
