@@ -675,45 +675,109 @@ class FClass {
 
 <H1 ALIGN=CENTER> Week - 5 </H1>
 
-
 ### PPA - 1
-> A
+> Given a class name as input, complete the Java code to print the count of public and declared methods, fields and constructors in the class. For each method in class ClassStats below, fill in the missing code as described in the comments. Each method takes the class name as input.
 ```
 
 ```
 
 ### PPA - 2
-> A
-```
-
-```
-
-### PPA - 3
-> A
+> Complete the Java code given below that takes as input a string array, where each string is assured to be either an integer or a double in string format. Your code must segregate the two types - integer and double - and print the double values followed by the integer values. For this, your code must iterate through the input array, and add each element to the appropriate array based on its type. 
 ```
 
 ```
 
 ### GrPA - 1
-> A
+> Given as input two integers `n_1`, `n_2` and two double values `d_1`, `d_2` complete the Java code to form two complex numbers `c_1` and `c_2`, as described below, and print their sum. <BR>
+> The real parts of `c_1` and `c_2` are `n_1` and `d_1` respectively, whereas their imaginary parts are `n_2` and `d_2`, respectively. <BR>
+> Define a generic class `ComplexNum` with the following members. <BR>
+>  - Instance variables $r$ and $i$ <BR>
+>  - A constructor to initialize $r$ and $i$ <BR>
+>  - A method `add()` to return the sum of the two instances of generic type `ComplexNum` <BR>
+>  - A method that overrides the `toString()` method in the Object class so that the format of the output is in accordance with those in the test cases.
 ```
-
+import java.util.*;
+class ComplexNum<T extends Number> {
+	private T r, i;
+	public ComplexNum(T r, T i) {
+		this.r = r;
+		this.i = i;
+	}
+	public ComplexNum<Double> add(ComplexNum<?> c) {
+		ComplexNum<Double> dc = new ComplexNum<Double>(0.0, 0.0);
+		dc.r = this.r.doubleValue() + c.r.doubleValue();
+		dc.i = this.i.doubleValue() + c.i.doubleValue();
+		return dc;
+	}
+	public String toString() {
+		return r.doubleValue() + " + " + i.doubleValue() + "i";
+	}
+}
+class FClass {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int n1, n2;
+		double d1, d2;
+		n1 = sc.nextInt();
+		n2 = sc.nextInt();
+		d1 = sc.nextDouble();
+		d2 = sc.nextDouble();
+		ComplexNum<Integer> c1 = new ComplexNum<Integer>(n1, n2);
+		ComplexNum<Double> c2 = new ComplexNum<Double>(d1, d2);
+		ComplexNum<Double> c3 = c1.add(c2);
+		System.out.println(c1 + " + " + c2 + " = " + c3);
+	}
+}
 ```
 
 ### GrPA - 2
-> A
+> Write a Java code that takes as input a positive number (length of an array here), and two arrays of that length - one of integers and another of strings. The code must also take an integer and a String as input, and print the number of occurrences of the integer and the string in the integer array and the string array, respectively.
+> **Format of input:** Length of the arrays, Elements in the integer array (in separate lines), Element to count in the integer array, Elements in the string array (in separate lines), Element to count in the string array
+> **Variables used in the code:** `len` - represents length of array, `s1` - represents an element to be counted for in Integer array, `s2` - represents an element to be counted for in String array
 ```
-
-```
-
-### GrPA - 3
-> A
-```
-
+import java.util.*;
+class ArrayExample <T> {
+	T[] a;
+	public ArrayExample(T[] arr) {
+		a = arr;
+	}
+	public void display() {
+		for(int i = 0; i < a.length; i++)
+			System.out.print(a[i] + " ");
+		System.out.println();
+	}
+	public int elementCount(T x) {
+		int count = 0;
+		for(int i = 0; i < a.length; i++) {
+			if(a[i].equals(x))
+				count = count + 1;
+		}
+		return count;
+	}
+}
+public class ArrayObject {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int len = sc.nextInt(); //Taking input for length of array
+		Integer[] x = new Integer[len];
+		for(int i = 0; i < len; i++)
+			x[i] = sc.nextInt();
+		ArrayExample<Integer> obj = new ArrayExample<Integer>(x);
+		int s1 = sc.nextInt(); 
+		String[] y = new String[len];
+		for(int i = 0; i < len; i++)
+			y[i] = sc.next(); //Taking input for String array
+		ArrayExample<String> obj1 = new ArrayExample<String>(y);
+		String s2 = sc.next(); //Taking input for the value to be counted
+		obj.display();
+		System.out.println(obj.elementCount(s1));
+		obj1.display();
+		System.out.println(obj1.elementCount(s2));
+	}
+}
 ```
 
 <H1 ALIGN=CENTER> Week - 6 </H1>
-
 
 ### PPA - 1
 > A
