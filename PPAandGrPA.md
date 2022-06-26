@@ -780,7 +780,7 @@ public class ArrayObject {
 <H1 ALIGN=CENTER> Week - 6 </H1>
 
 ### PPA - 1
-> A
+> 
 ```
 
 ```
@@ -791,26 +791,120 @@ public class ArrayObject {
 
 ```
 
-### PPA - 3
-> A
-```
-
-```
-
 ### GrPA - 1
-> A
+>  Given as input a set of four objects of class CricketPlayer complete the Java code to segregate the players represented by these objects into batsmen and bowlers.
+> Create an ArrayList object to store the four objects of CricketPlayer.
+> Segregate them as batsmen and bowlers based on the following criteria: 
+> - A player is termed as a batsman if his/her average runs per match are greater than 25.
+> - A player is termed as a bowler if his/her average wickets per match are greater than 1.
+> Create ArrayList bt to store the batsmen and ArrayList bw to store the bowlers.
+> Observe that the same player could belong to both the lists. 
+> Print the list of bowlers in a line, followed by the list of batsmen in the next line, using the `displayPlayers(ArrayList<CricketPlayer> bw, ArrayList<CricketPlayer> bt)` method.
 ```
-
+import java.util.*;
+class CricketPlayer {
+	private String name;
+	private int wickets;
+	private int runs;
+	private int matches;
+	public CricketPlayer(String s, int w, int r, int m) {
+		this.name = s;
+		this.wickets = w;
+		this.runs = r;
+		this.matches = m;
+	}
+	public String getName() {
+		return name;
+	}
+	public int getWickets() {
+		return wickets;
+	}
+	public int getRuns() {
+		return runs;
+	}
+	public double avgRuns() {
+		return runs/matches;
+	}
+	public double avgWickets(){
+		return wickets/matches;
+	}
+}
+public class Main {
+	public static void displayPlayers(ArrayList <CricketPlayer> BW, ArrayList <CricketPlayer> BT) {
+		for(CricketPlayer p : BW)
+			System.out.print(p.getName()+ " ");
+		System.out.println();
+		for(CricketPlayer p : BT)
+			System.out.print(p.getName()+ " ");
+		System.out.println();
+	}
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		CricketPlayer p1 = new CricketPlayer(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt());
+		CricketPlayer p2 = new CricketPlayer(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt());
+		CricketPlayer p3 = new CricketPlayer(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt());
+		CricketPlayer p4 = new CricketPlayer(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt());
+		ArrayList<CricketPlayer> temp = new ArrayList<CricketPlayer>();
+		ArrayList<CricketPlayer> bt = new ArrayList<CricketPlayer>();
+		ArrayList<CricketPlayer> bw = new ArrayList<CricketPlayer>();
+		temp.add(p1);
+		temp.add(p2);
+		temp.add(p3);
+		temp.add(p4);
+		for(CricketPlayer p: temp) {
+			if(p.avgRuns() > 25)
+				bt.add(p);
+			if(p.avgWickets() > 1)
+				bw.add(p);
+		}
+		displayPlayers(bw, bt);
+	}
+}
 ```
 
 ### GrPA - 2
-> A
+> Write a program that checks for balanced parentheses in an expression i.e. whether the pairs and the order of  "{ ",  " } ”, " ( ", " ) ”, " [ ", " ] ” are correct in the given input.
+> The program should keep taking expressions as input one after the other, until the user enters the word `done' (not case-sensitive). After all the expressions are input, for each input, the program should print whether the given expression is balanced or not (the order of the output should match the order of the input). If an input expression is balanced, print `Balanced` else print `Not Balanced`.
 ```
-
-```
-
-### GrPA - 3
-> A
-```
-
+import java.util.*;
+public class Test3 {
+	public static boolean balanceCheck(String sequence) {
+		Stack <Character> stack = new Stack <Character>();
+		for (int i = 0; i < sequence.length(); i++) {
+			char ch = sequence.charAt(i);
+			if (ch == '(' || ch == '{' || ch == '[')
+				stack.push(ch);
+			else if (ch == ')' || ch == '}' || ch == ']') {
+				if (stack.isEmpty())
+					return false;
+				char top = stack.pop();
+				if (top == '(' && ch != ')')
+					return false;
+				else if (top == '{' && ch != '}')
+					return false;
+				else if (top == '[' && ch != ']')
+					return false;
+			}
+		}
+		if (stack.isEmpty())
+			return true;
+		return false;
+	}
+	public static void main(String args[]) {
+		Scanner s = new Scanner(System.in);
+		ArrayList<String> expr_arr= new ArrayList<String>();
+		String inp=null;
+		do {
+			inp = s.nextLine();
+			if(!inp.equalsIgnoreCase("Done"))
+			expr_arr.add(inp);
+		} while (!inp.equalsIgnoreCase("Done"));
+		for(String expr : expr_arr) {
+			if(balanceCheck(expr))
+				System.out.println("Balanced");
+			else
+				System.out.println("Not Balanced");
+		}
+	}
+}
 ```
