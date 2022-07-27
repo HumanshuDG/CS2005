@@ -1230,21 +1230,147 @@ public class Test4 {
 ```
 
 ### PPA - 2
-> 
+> Write a Java program that accepts a string, an integer `i` and `a` character `c` as input. The character at position i in the given string has to be replaced by the value of `c`. If the index is more than the length of the string, then it updates the last character  of the given string with the value of `c`. If the index `i` is negative, then it throws an appropriate error message.
+> Implement the function `replace` such that it does the following: 
+> - It has three parameters - a character array (for the input string), an index and a character.
+> - If the given index is in the range of the character array, it replaces the character at the given position; otherwise, catch `ArrayIndexOutOfBoundsException`.
+> - In catch block (`catchesArrayIndexOutOfBoundsException`), if the index is beyond the length of the character array, it updates the last character of the given character array.
+> - If the index is negative, then it rethrows the exception to forward the exception to the caller function  `main`.
 ```
+import java.util.*;
+class FClass {
+	public static char[] replace(char[] arr, int i, char ch) {
+		try {
+			arr[i] = ch;
+			return arr;
+		}
+		catch (ArrayIndexOutOfBoundsException e) {
+			if (i >= arr.length) {
+				arr[arr.length - 1] = ch;
+				return arr;
+			}
+			else {
+				throw e;
+			}
+		}
+	}
 
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String s1 = sc.next();
+		int i = sc.nextInt();
+		char c = sc.next().charAt(0);
+		try {
+			String s2 = new String(replace(s1.toCharArray(), i, c));
+			System.out.println(s2);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+}
 ```
 
 ### GrPA - 1
-> 
+> Recall that Java throws an `ArithmeticException` if there is an attempt to divide by zero. Similar to this, we can generate an exception if there is a division by three. Given two integers as input, complete the Java code given below to generate such an exception.
+- Create a class DivisionException that extends the class `Exception`.
+- Override the `toString()` method to return `"Division by 3 is not allowed"`.
+- In the class Test, define `divide(int a, int b)` to return `a / b`, if the value of `b` is not equal to `3`. If the value of `b` is `3`, then throw an instance of `DivisionException`.
+- Inside the method `main()`, invoke `divide(x, y)`, and handle any possible exception by printing the said message.
 ```
+import java.util.*;
 
+//Define DivisionException class here
+class DivisionException extends Exception {
+	public String toString() {
+		return "Division by 3 is not allowed";
+	}
+}
+
+public class Test {
+	//Define divide(int a, int b) here
+	public static int divide(int a, int b) throws DivisionException {
+		if (b == 3) {
+			throw new DivisionException();
+		}
+		return a / b;
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int x = sc.nextInt();
+		int y = sc.nextInt();
+
+		//call divide method here
+		try {
+			System.out.println(divide(x, y));
+		}
+		catch(DivisionException e) {
+			System.out.println(e.toString());
+		}
+	}
+}
 ```
 
 ### GrPA - 2
-> 
-```
+> Write a Java program that accepts as input an array of 5 integers. Instead of accepting elements in the order of indices (from 0 to 4), it accepts the array as 5 pairs of integers, where each pair is an index-value pair. The first integer in a pair represents the array index (or position), with accepted values ranging from 0 to 4. The second integer is the value at that index inside the array. Note that the input may not be in the order of the indices.
+> If any of the given index is out of range, then your code must throw appropriate exceptions, as shown in the test cases. If all indices are within the permissible range, then the code must print the values of the array in a single line (each value followed by a space).
+> Define a checked exceptionInvalidInputEx.
+> Define a class IntList having the following:
+> - An integer array as an instance variable to store the 5 values.
+> - A method `set_value` with two arguments - one for the index and the other for the value - that stores the value at the given index of the array. If an index is `< 0` or `> 4`, handle the appropriate exception and re-throw exception `InvalidInputEx` (which would be handled in `main`). Set the original exception as cause of the new exception, and then throw the new exception.
+> - A `methodgetArray` to return the integer array.
 
+```
+import java.util.*;
+class InvalidInputEx extends Exception {
+    public InvalidInputEx(String msg) {
+        super(msg);
+    }
+    public String toString() {
+        return "Index 5 out of bounds for length 5";
+    }
+}
+
+//define the class IntList with 
+class IntList {
+    private int[] arr = {0,0,0,0,0};
+    public void set_value(int idx, int val) throws InvalidInputEx {
+        try {
+            arr[idx] = val;
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            InvalidInputEx exp = new InvalidInputEx("invalid index input");
+            exp.initCause(e);
+            throw exp;
+        }
+    }
+    public int[] getArray() {
+        return arr;
+    }
+}
+
+class FClass {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        IntList ilist = new IntList();
+        try {
+            for(int i = 0; i < 5; i++) {			
+                int n = sc.nextInt();
+                int m = sc.nextInt();
+                ilist.set_value(n, m);
+            }
+        }
+        catch(InvalidInputEx e) {
+            System.out.println(e.getMessage());
+            Throwable ori = e.getCause();
+            System.out.println(ori.getMessage());
+        }	
+        int[] i_arr = ilist.getArray();
+        for(int i = 0; i < i_arr.length; i++)
+            System.out.print(i_arr[i] + " ");
+    }
+}
 ```
 
 
