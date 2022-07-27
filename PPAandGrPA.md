@@ -884,7 +884,12 @@ public class ArrayObject {
 <H1 ALIGN=CENTER> Week - 6 </H1>
 
 ### PPA - 1
+> Complete the Java code below that takes a  Map object as input, and removes key-value pairs from the object that satisfy the defined property.
+> The program should accept 6 key-value pairs, and add those to a Map object. Each key is the name of a student and is of type String, whereas the corresponding value is the attendance of that student and is of type  Double. Assume that the student names are not repeated. 
 > 
+> For each key-value pair, if the value satisfies the condition given in the property() method, then the detained(Map<String, Double> obj) method should remove the key-value pair from the Map object.
+> 
+> After making all the updates, the detained(Map<String, Double> obj) method should invoke the display(Map<String, Double> obj) method to print the names and the attendance of the students who have not been removed from the Map object, in the format shown in the public test cases.
 ```
 import java.util.*;
 class RemoveStudent{
