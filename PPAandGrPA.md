@@ -1597,15 +1597,147 @@ public class SecondDose{
 ```
 
 ### GrPA - 1
+> The program stores a list of Employee objects, each of which has name, department and salary as instance variables. A user can query the list to find the Employees who belong to a specific department and have salary greater than or equal to the input salary. Complete the program as specified.
 > 
+> Define a class Employee as follows:
+> - Add the instance variables to represent `name`, `department` and `salary`.
+> - Implement the required constructor(s) and accessors.
+> - Override the method `toString()` so that the format of the output is in accordance with those in the test cases. 
+> - Define a function query that takes a list of employees, a department and a salary as input. It returns a stream comprising the Employee objects that have the same department and have salary greater and equal to the given salary.
 ```
+import java.util.*;
+import java.util.stream.*;
 
+//define class Employee
+class Employee {
+    String name;
+    String department;
+    int salary;
+    public Employee(String name, String department, int salary) {
+        this.name = name;
+        this.department = department;
+        this.salary = salary;
+    }
+    @Override
+    public String toString() {
+        return name + " : " + department + " : " + salary;
+    }
+    public Object getDep() {
+        return department;
+    }
+    public int getSalary() {
+        return salary;
+    }
+}
+
+class FClass{
+    //define method query
+    public static Stream<Employee> query(ArrayList<Employee> emp, String department, double salary) {
+        Stream<Employee> empSt = emp.stream().filter(v -> v.getDep().equals(department) && v.getSalary() >= salary);
+        return empSt;
+    }
+    
+ public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        var eList = new ArrayList<Employee>();
+        eList.add(new Employee("Jack", "HR", 30000));
+        eList.add(new Employee("Aria", "HR", 40000));
+        eList.add(new Employee("Nora", "IT", 50000));
+        eList.add(new Employee("Bella", "IT", 60000));
+        eList.add(new Employee("Jacob", "IT", 70000));
+        eList.add(new Employee("James", "HR", 80000));
+        String d = sc.next();       //read department
+        double s = sc.nextInt();    //read salary
+		
+        var st = query(eList, d, s);
+        st.forEach(n -> System.out.println(n + " "));
+    }
+}
 ```
 
 ### GrPA - 2
+> Naresh (aka Customer c1) buys a set of items from a shop. Suresh (aka Customer c2) also buys all items bought by Naresh except the first item, in place of which Suresh buys another item. Write a program that defines two classes Items and Customer, and clones the object of class Customer to model the scenario given above. Classes Items and Customer should be cloneable, and must have the functionality to clone (deep copy) c2 from c1. You are given as input the number of items bought by Naresh, the names of the items, and the new item that Suresh will be buying. The code to change the first item and the name in the second customer object after the cloning, has been provided in the given code. You should complete the program as specified below.
 > 
+> Define a class Items that implements interface Cloneable, and has the following members.
+> – A public instance variable item of type `String[]` to store the item names
+> – Constructor(s) and accessors to, respectively, initialize and access the instance variable
+> – Override the method `clone`.
+> – Override the method `toString` so that the format of the output is in accordance with those in the test cases
+> 
+> Define a class Customer that implements interface Cloneable, and has the following members.
+> – Instance variable name of type String to store the name of the customer.
+> – Instance variable of type Items to store the items purchased by the customer.
+> – Implement the constructor(s), the accessor `getItems()` to return the object of Items, and the mutator `setName(String s)` to update the name of the customer.
+> – Override the method `clone`.
+> – Override the method `toString` so that the format of the output is in accordance with those in the test cases.
 ```
+import java.util.*;
 
+//Define classes Items, Customer
+class Items implements Cloneable {
+    public String[] item;
+    public Items(String[] itemName) {
+        this.item = itemName;
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (String it : item) {
+            output += it + " ";
+        }
+        return output;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        String[] cloneItemsList = Arrays.copyOf(item, item.length);
+        Items cloneItems = new Items(cloneItemsList);
+        return cloneItems;
+    }
+}
+
+class Customer implements Cloneable {
+    String name;
+    Items items;
+    Customer(String name, Items items) {
+        this.name = name;
+        this.items = items;
+    }
+    public void setName(String s) {
+        this.name = s;
+    }
+    @Override
+    public String toString() {
+        return name + " " + items;
+    }
+    public Items getItems() {
+        return items;
+    }
+    @Override
+    protected Customer clone() throws CloneNotSupportedException {
+        Customer cs = (Customer) super.clone();
+        cs.items = (Items) items.clone();
+        return cs;
+    }
+}
+
+public class Order {
+  public static void main(String[] args) throws CloneNotSupportedException{
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt(); // number of items
+    String[] itm = new String[n];
+    for(int i = 0; i < n; i++){
+      itm[i] = sc.next(); // list of items
+    } 
+    var c1 = new Customer("naresh", new Items(itm));
+    Customer c2 = c1.clone();   
+    c2.getItems().item[0] = sc.next();   //Update first item of c2
+    c2.setName("suresh"); //Update name of c2
+    System.out.println(c1);
+    System.out.println(c2);
+  }
+}   
 ```
 
 <HR>
